@@ -1,0 +1,202 @@
+{
+    "version": "0.1.0",
+    "maintainer_email": "alex@sci-blog.com",
+    "groupings": {
+    },
+    "long_description": "= DESCRIPTION:\n\nInstalls and configures Movabletype version 4 and 5. \n\n= REQUIREMENTS:\n\n== Platform:\n\nTested on Ubuntu 9.04, 9.10.\n\n== Cookbooks:\n\nOpscode cookbooks, http://github.com/opscode/cookbooks/tree/master:\n\n* mysql\n* php\n* perl\n* apache2\n* opensssl\n\n== Libraries:\n\nThe openssl library is required from the openssl cookbook to generate secure passwords.\n\n= ATTRIBUTES:\n\n* wordpress[:version] - Set the version to download.\n* wordpress[:checksum] - sha256sum of the tarball, make sure this matches for the version!\n* wordpress[:dir] - Set the location to place wordpress files. Default is /var/www.\n* wordpress[:db][:database] - Movabletype will use this MySQL database to store its data.\n* wordpress[:db][:user] - Movabletype will connect to MySQL using this user.\n* wordpress[:db][:password] - Password for the Movabletype MySQL user. The default is a randomly generated string.\n\nAttributes will probably never need to change (these all default to randomly generated strings):\n\n* wordpress[:keys][:auth]\n* wordpress[:keys][:secure_auth]\n* wordpress[:keys][:logged_in]\n* wordpress[:keys][:nonce]\n\nThe random generation is handled with the secure_password method in the openssl cookbook which is a cryptographically secure random generator and not predictable like the random method in the ruby standard library.\n\n= USAGE:\n\nIf a different version than the default is desired, download that version and get the SHA256 checksum (sha256sum on Linux systems), and set the version and checksum attributes.\n\nAdd the \"movabletype\" recipe to your node's run list or role, or include the recipe in another cookbook.\n\nChef will install and configure mysql, php, and apache2 according to the instructions at http://codex.wordpress.org/Installing_WordPress. Does not set up a wordpress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).\n\nThe mysql::server recipe needs to come first, and contain an execute resource to install mysql privileges from the grants.sql template in this cookbook.\n\n== Note about MySQL:\n\nThis cookbook will decouple the mysql::server and be smart about detecting whether to use a local database or find a database server in the environment in a later version.\n\n= LICENSE and AUTHOR:\n\nAuthor:: Barry Steinglass (barry@opscode.com>)\n\nCopyright:: 2010, Opscode, Inc\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+    "recommendations": {
+    },
+    "description": "Installs/Configures movable type - derivative from movabletype cookbook",
+    "attributes": {
+      "movabletype/checksum": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "d2d8f399ab62b173077ae2980e9b72da",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType tarball checksum",
+        "description": "Checksum of the tarball for the version specified."
+      },
+      "movabletype/db/database": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "movabletypedb",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType MySQL database",
+        "description": "MovableType will use this MySQL database to store its data."
+      },
+      "movabletype/keys/logged_in": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "randomly generated",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType logged-in key",
+        "description": "MovableType logged-in key."
+      },
+      "movabletype/dir": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "/var/www",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType installation directory",
+        "description": "Location to place movabletype files."
+      },
+      "movabletype/keys/nonce": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "randomly generated",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType nonce key",
+        "description": "MovableType nonce key."
+      },
+      "movabletype/db/password": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "randomly generated",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType MySQL password",
+        "description": "Password for the Wordpress MySQL user."
+      },
+      "movabletype/keys/secure_auth": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "randomly generated",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType secure auth key",
+        "description": "MovableType secure auth key."
+      },
+      "movabletype/keys/auth": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "randomly generated",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType auth key",
+        "description": "MovableType auth key."
+      },
+      "movabletype/db/user": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "movabletypeuser",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType MySQL user",
+        "description": "MovableType will connect to MySQL using this user."
+      },
+      "movabletype/version": {
+        "required": "optional",
+        "calculated": false,
+        "choice": [
+
+        ],
+        "default": "5.02",
+        "type": "string",
+        "recipes": [
+
+        ],
+        "display_name": "MovableType download version",
+        "description": "Version of MovableType to download from the MovableType site."
+      }
+    },
+    "suggestions": {
+    },
+    "dependencies": {
+      "xml": [
+
+      ],
+      "mysql": [
+
+      ],
+      "php": [
+
+      ],
+      "openssl": [
+
+      ],
+      "apt": [
+
+      ],
+      "perl": [
+
+      ],
+      "imagemagick": [
+
+      ],
+      "apache2": [
+
+      ],
+      "build-essential": [
+
+      ]
+    },
+    "recipes": {
+    },
+    "conflicting": {
+    },
+    "providing": {
+    },
+    "platforms": {
+      "debian": [
+
+      ],
+      "ubuntu": [
+
+      ]
+    },
+    "name": "movabletype",
+    "license": "Apache 2.0",
+    "maintainer": "Alex Mikhalev",
+    "replacing": {
+    }
+  }
