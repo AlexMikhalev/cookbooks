@@ -1,0 +1,16 @@
+= DESCRIPTION: 
+This recipe will install xtreemfs server and xtreemfs client as  http://www.xtreemfs.org/quickstart.php
+It currently works only on ubuntu and I was using vagrant with chef solo to test it
+
+= REQUIREMENTS:
+java (open-jre)
+
+= ATTRIBUTES: 
+node[:xtreemfs][:version]
+node[:xtreemfs][:architecture]
+
+= USAGE:
+add_recipe("xtreemfs::server")
+add_recipe("xtreemfs::client")
+
+                     

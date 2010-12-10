@@ -7,10 +7,15 @@
 # All rights reserved - Do Not Redistribute
 # 
 
-%w{ build-essential cmake libboost1.40-all-dev postgresql-8.4 libpqxx-3.0 libpqxx3-dev libprotobuf5 libprotobuf-dev protobuf-compiler doxygen flex bison libxerces-c-dev libxerces-c3.1 liblog4cxx10 liblog4cxx10-dev libcppunit-1.12-1 libcppunit-dev libbz2-dev postgresql-contrib libconfig++8 libconfig++8-dev libconfig8-dev subversion}.each do |devpkg|
+%w{curl gcc bzr memcached python-configobj python-coverage python-dev python-nose python-setuptools python-simplejson python-xattr sqlite3 xfsprogs python-webob python-eventlet python-greenlet python-pastedeploy}.each do |devpkg|
   package devpkg
 end
 # should be working code
+
+execute "install_swift_repo" do
+  command "sudo apt-get install python-software-properties && add-apt-repository ppa:swift-core/ppa && apt-get update"
+end  
+
 bash "compile_scidb_source" do
   cwd "/tmp"
   code <<-EOH
