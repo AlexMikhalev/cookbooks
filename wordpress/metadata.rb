@@ -16,7 +16,7 @@ end
 attribute "wordpress/version",
   :display_name => "Wordpress download version",
   :description => "Version of Wordpress to download from the Wordpress site.",
-  :default => "3.0.1"
+  :default => "3.1"
                        # http://wordpress.org/wordpress-3.0.1.zip
 attribute "wordpress/checksum",
   :display_name => "Wordpress tarball checksum",
